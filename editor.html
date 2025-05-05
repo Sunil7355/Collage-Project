@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Learn to Code - Code Editor</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background:cadetblue;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      width: 100%;
+      padding: 15px;
+      background-color: rgb(205,229,245);
+      color: rgb(53,97,126);
+      text-align: center;
+      font-size: 1.5rem;
+    }
+
+    textarea {
+      width: 90%;
+      height: 300px;
+      margin: 20px 0;
+      padding: 15px;
+      font-family: monospace;
+      font-size: 14px;
+      background: rgb(205,229,245);
+      color: rgb(53,97,126);
+      border: none;
+      border-radius: 8px;
+      resize: vertical;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: rgb(205,229,245);
+      color: rgb(53,97,126);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    button:hover {
+      background-color: rgb(205,229,245);
+    }
+
+    iframe {
+      width: 90%;
+      height: 300px;
+      border: 1px solid #ccc;
+      background: white;
+      border-radius: 8px;
+      margin-bottom: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>💻 Learn to Code - Online Code Editor</header>
+
+  <textarea id="code" placeholder="Write your HTML, CSS, and JavaScript code here..."></textarea>
+
+  <button onclick="runCode()">Run</button>
+
+  <iframe id="output"></iframe>
+
+  <script>
+    function runCode() {
+      const code = document.getElementById("code").value;
+      const output = document.getElementById("output");
+      output.srcdoc = code;
+    }
+  </script>
+</body>
+</html>

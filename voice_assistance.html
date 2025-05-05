@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Learn to Code - Voice Read</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+    }
+
+    .tooltip {
+      position: absolute;
+      background: #007bff;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      z-index: 9999;
+      display: none;
+      white-space: nowrap;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: opacity 0.2s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>👩‍💻 Learn to Code - Voice Assistant</h1>
+  <p>
+    Select any part of this text. A “🔊 Read” button will appear. Click it to hear it in a female voice.
+  </p>
+
+  <p>
+    JavaScript can be used to create beautiful, interactive experiences on the web.
+  </p>
+
+  <div id="readTooltip" class="tooltip">🔊 Read</div>
+
+  <script>
+    const tooltip = document.getElementById('readTooltip');
+    let selectedVoice = null;
+
+    // Load voices and pick a female one
+    function loadVoices() {
+      const voices = speechSynthesis.getVoices();
+      // Try to find a female voice by name (you can customize this!)
+      selectedVoice = voices.find(v =>
+        v.name.toLowerCase().includes("female") || 
+        v.name.toLowerCase().includes("google uk english female") || 
+        (v.lang === "en-US" && v.name.toLowerCase().includes("zira")) ||
+        v.name.toLowerCase().includes("samantha")
+      );
+
+      // fallback to first available if no female found
+      if (!selectedVoice && voices.length > 0) {
+        selectedVoice = voices[0];
+      }
+    }
+
+    // Some browsers delay loading voices, so listen for this event
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+
+    document.addEventListener('mouseup', () => {
+      setTimeout(() => {
+        const selection = window.getSelection();
+        const selectedText = selection.toString().trim();
+
+        if (selectedText.length > 0) {
+          const range = selection.getRangeAt(0);
+          const rect = range.getBoundingClientRect();
+
+          if (rect.width || rect.height) {
+            tooltip.style.top = `${rect.top + window.scrollY - 40}px`;
+            tooltip.style.left = `${rect.left + window.scrollX}px`;
+            tooltip.style.display = 'block';
+            tooltip.dataset.text = selectedText;
+          } else {
+            tooltip.style.display = 'none';
+          }
+        } else {
+          tooltip.style.display = 'none';
+        }
+      }, 10);
+    });
+
+    tooltip.addEventListener('click', () => {
+      const text = tooltip.dataset.text;
+      if (text) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        if (selectedVoice) utterance.voice = selectedVoice;
+        utterance.lang = 'en-US';
+        speechSynthesis.cancel();
+        speechSynthesis.speak(utterance);
+        tooltip.style.display = 'none';
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!tooltip.contains(e.target)) {
+        tooltip.style.display = 'none';
+      }
+    });
+
+    // Trigger initial voice load
+    loadVoices();
+  </script>
+</body>
+</html>

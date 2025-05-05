@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Web Dev Speed Coding Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      background-color:cadetblue;
+      color:rgb(53,97,126);
+      padding: 20px;
+      margin: 0;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    input, button {
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      margin: 8px;
+      border: none;
+      width: 90%;
+      max-width: 400px;
+    }
+    button {
+      background: rgb(205, 229, 245);
+      color:rgb(53,97,126);
+      cursor: pointer;
+    }
+    button:hover {
+      background: rgb(205, 229, 245);
+    }
+    #question {
+      font-size: 18px;
+      margin: 20px 0 10px;
+    }
+    #hint {
+      font-style: italic;
+      color: #ccc;
+      margin-bottom: 10px;
+    }
+    #result {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    #timer, #score, #highScore {
+      margin-top: 15px;
+      font-size: 18px;
+    }
+    #timer {
+      color:gold
+    }
+    @media (min-width: 600px) {
+      h1 {
+        font-size: 30px;
+      }
+      input, button {
+        font-size: 18px;
+      }
+      #question {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>⚡ Web Dev Speed Coding Game</h1>
+
+  <button onclick="startGame()">▶️ Start Game</button>
+
+  <div id="timer" style="display:none;">Time Left: 30s</div>
+  <div id="highScore"></div>
+  <div id="question"></div>
+  <div id="hint"></div>
+
+  <input type="text" id="answer" placeholder="Type your answer..." style="display:none;" />
+  <br>
+  <button id="submitBtn" onclick="submitAnswer()" style="display:none;">Submit</button> <br>
+  <button id="skipBtn" onclick="skipQuestion()" style="display:none;">Next</button> <br>
+  <button id="showAnswerBtn" onclick="showAnswer()" style="display:none;">Show Answer</button>
+
+  <div id="result"></div>
+  <div id="score"></div>
+
+  <script>
+    const questions = [
+      {
+        question: "HTML: Tag for creating a hyperlink?",
+        answer: "<a>",
+        hint: "Starts with 'a'"
+      },
+      {
+        question: "CSS: Property to change text color?",
+        answer: "color",
+        hint: "Same as the name of the thing it changes"
+      },
+      {
+        question: "JS: Function to print to console?",
+        answer: "console.log()",
+        hint: "Starts with console"
+      },
+      {
+        question: "HTML: Tag to insert image?",
+        answer: "<img>",
+        hint: "Short for image"
+      },
+      {
+        question: "CSS: Property to make text bold?",
+        answer: "font-weight",
+        hint: "Deals with font thickness"
+      },
+      {
+        question: "JS: Method to get element by ID?",
+        answer: "document.getElementById()",
+        hint: "Starts with document."
+      }
+    ];
+
+    let current = {};
+    let score = 0;
+    let time = 30;
+    let timer = null;
+
+    function startGame() {
+      score = 0;
+      time = 30;
+      document.getElementById("score").innerText = "Score: 0";
+      document.getElementById("result").innerText = "";
+      document.getElementById("timer").style.display = "block";
+      document.getElementById("answer").style.display = "inline-block";
+      document.getElementById("submitBtn").style.display = "inline-block";
+      document.getElementById("skipBtn").style.display = "inline-block";
+      document.getElementById("showAnswerBtn").style.display = "inline-block";
+      showHighScore();
+      startTimer();
+      loadQuestion();
+    }
+
+    function loadQuestion() {
+      current = questions[Math.floor(Math.random() * questions.length)];
+      document.getElementById("question").innerText = current.question;
+      document.getElementById("hint").innerText = "💡 Hint: " + current.hint;
+      document.getElementById("answer").value = "";
+      document.getElementById("result").innerText = "";
+      document.getElementById("showAnswerBtn").disabled = false;
+    }
+
+    function submitAnswer() {
+      const userAns = document.getElementById("answer").value.trim();
+      if (userAns === current.answer) {
+        score++;
+        document.getElementById("result").innerText = "✅ Correct!";
+        document.getElementById("score").innerText = "Score: " + score;
+        updateHighScore();
+        loadQuestion();
+      } else {
+        document.getElementById("result").innerText = "❌ Try again!";
+      }
+    }
+
+    function skipQuestion() {
+      document.getElementById("result").innerText = "⏭️ Skipped!";
+      loadQuestion();
+    }
+
+    function showAnswer() {
+      document.getElementById("result").innerText = `💡 Correct Answer: ${current.answer}`;
+      document.getElementById("showAnswerBtn").disabled = true;
+    }
+
+    function startTimer() {
+      clearInterval(timer);
+      timer = setInterval(() => {
+        time--;
+        document.getElementById("timer").innerText = "Time Left: " + time + "s";
+        if (time <= 0) {
+          clearInterval(timer);
+          document.getElementById("question").innerText = "⏱️ Time's Up!";
+          document.getElementById("hint").innerText = "";
+          document.getElementById("answer").style.display = "none";
+          document.getElementById("submitBtn").style.display = "none";
+          document.getElementById("skipBtn").style.display = "none";
+          document.getElementById("showAnswerBtn").style.display = "none";
+        }
+      }, 1000);
+    }
+
+    function updateHighScore() {
+      const high = localStorage.getItem("highScore") || 0;
+      if (score > high) {
+        localStorage.setItem("highScore", score);
+        showHighScore();
+      }
+    }
+
+    function showHighScore() {
+      const high = localStorage.getItem("highScore") || 0;
+      document.getElementById("highScore").innerText = "🏆 High Score: " + high;
+    }
+  </script>
+
+</body>
+</html>

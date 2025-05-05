@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login / Sign In Button</title>
+  <style>
+    .auth-buttons {
+      display: flex;
+      gap: 5px;
+      justify-content: flex-end;
+      padding: 20px;
+      box-shadow: 25px;
+    }
+
+    .auth-buttons button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 100px;
+      box-shadow: 0px 10px 10px rgb(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .login-btn {
+background-color:rgb(205, 229, 245);
+      color:rgb(53, 97, 126);
+    }
+
+    .login-btn:hover {
+      background-color: rgb(205, 229, 245);
+    }
+
+    .signin-btn {
+      background-color:rgb(205, 229, 245);
+      color: rgb(53, 97, 126);
+    }
+
+    .signin-btn:hover {
+      background-color: rgb(205, 229, 245);
+    }
+
+    body{
+      background-color: cadetblue;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-buttons">
+    <button class="login-btn" onclick="window.location.href='login_page.html'">Login</button>
+    <button class="signin-btn" onclick="window.location.href='sign_up.html'">Sign Up</button>
+  </div>
+</body>
+</html>

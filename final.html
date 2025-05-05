@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnToCode</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: rgb(101, 172, 172);
+            color: #333;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: rgb(205, 229, 245);
+            box-shadow: 0 0 20px black;
+        }
+
+        .container img {
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgb(115, 141, 158);
+        }
+
+        .container h1 {
+            color: rgb(53, 97, 126);
+            font-family: "Source Code Pro", monospace;
+            font-weight: bold;
+
+            h1 span{
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp  0.6s ease-out forwards;
+}
+ /* Delay each letter */
+ h1 span:nth-child(1) { animation-delay: 0s; }
+ h1 span:nth-child(2) { animation-delay: 0.1s; }
+ h1 span:nth-child(3) { animation-delay: 0.2s; }
+ h1 span:nth-child(4) { animation-delay: 0.3s; }
+ h1 span:nth-child(5) { animation-delay: 0.4s; }
+ h1 span:nth-child(6) { animation-delay: 0.5s; }
+ h1 span:nth-child(7) { animation-delay: 0.6s; }
+ h1 span:nth-child(8) { animation-delay: 0.7s; }
+ h1 span:nth-child(9) { animation-delay: 0.8s; }
+ h1 span:nth-child(10) { animation-delay: 0.9s; }
+ h1 span:nth-child(11) { animation-delay: 1.0s; }
+ h1 span:nth-child(12) { animation-delay: 1.1s; }
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        nav {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            background-color: rgb(205, 229, 245);
+            padding: 10px;
+            box-shadow: 0 0 20px black;
+            border-radius: 5px;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: rgb(53, 97, 126);
+            font-weight: bold;
+        }
+
+        .content {
+            margin: 20px;
+            padding: 20px;
+            background-color: #f0f8ff;
+            border-radius: 5px;
+            min-height: 300px;
+        }
+
+        .editor-container {
+            margin: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 0 10px #000;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            font-family: monospace;
+            font-size: 16px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        .run-btn {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #3579a5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        iframe.output {
+            width: 100%;
+            height: 200px;
+            border: none;
+            margin-top: 10px;
+            border-radius: 5px;
+            background-color: white;
+        }
+
+        .dark-mode {
+            background-color: #1e1e1e;
+            color: white;
+        }
+
+        .dark-mode .container, .dark-mode nav {
+            background-color: #333;
+        }
+
+        .dark-mode nav a, .dark-mode h1 {
+            color: #fff;
+        }
+
+        .dark-mode .content, .dark-mode .editor-container, .dark-mode textarea {
+            background-color: #2e2e2e;
+            color: white;
+        }
+
+        .dark-mode .run-btn {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="display: flex; align-items: center;">
+            <img src="icon 4.png" alt="logo" width="120">
+            <h1 style="margin-left: 20px;"> 
+            <span>L</span>  
+            <span>e</span>  
+            <span>a</span>  
+            <span>r</span>  
+            <span>n</span>  
+            <span>&nbsp;</span>  
+            <span>T</span>  
+            <span>o</span>  
+            <span>&nbsp;</span>  
+            <span>C</span>  
+            <span>o</span>  
+            <span>d</span>  
+            <span>e</span>  
+            </h1>
+        </div>
+        <div class="theme-toggle" onclick="toggleTheme()">
+            <i class="fas fa-adjust"></i>
+        </div>
+    </div>
+
+    <nav>
+        <a href="#html">HTML</a>
+        <a href="#css">CSS</a>
+        <a href="#javascript">JavaScript</a>
+        <a href="#projects">Projects</a>
+    </nav>
+
+    <div class="content">
+        <h2 id="html">HTML Content</h2>
+        <p>html</p>
+        <h2 id="css">CSS Content</h2> 
+
+        <h2 id="javascript">JavaScript Content</h2>
+
+        <h2 id="projects">Projects</h2>
+        <p>Here are few good projects that help you to strenghten concept of web dev:</p>
+        <ol>weather app, calculator, E commerce clone</ol>
+    </div>
+
+    <div class="editor-container">
+        <textarea id="code" placeholder="Write your HTML/JS code here..."></textarea>
+        <button class="run-btn" onclick="runCode()">Run</button>
+        <iframe class="output" id="output"></iframe>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle("dark-mode");
+        }
+
+        function runCode() {
+            const code = document.getElementById("code").value;
+            const output = document.getElementById("output");
+            output.srcdoc = code;
+        }
+    </script>
+</body>
+</html>

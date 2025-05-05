@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Study Hub</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background-color:cadetblue;
+      color: #333;
+    }
+
+    header h1{
+        font-family: monospace;
+    }
+
+    header {
+      background-color:rgb(205,229,245);
+      color: rgb(53,97,126);
+      padding: 2rem 1rem;
+      text-align: center;
+      margin-left: 7px;
+      margin-right: 7px;
+      margin-top: 7px;
+      box-shadow: 0 0 20px black;
+      border-radius: 5px;
+    }
+
+    nav {
+      background: #5c6bc0;
+      padding: 0.75rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      padding: 2rem;
+      
+
+    }
+
+    .content, .editor {
+      background: rgb(205,229,245);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      resize: vertical;
+    }
+
+    button {
+      padding: 0.75rem 1.5rem;
+      background-color: rgb(53,97,126);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background-color: rgb(21, 56, 79);
+    }
+
+    iframe {
+      width: 100%;
+      height: 250px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    footer {
+      background-color: rgb(21, 56, 79);
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>HTML:Hypertext Markup Language</h1>
+    <p>Learn HTML, CSS, and JavaScript with an interactive code editor</p>
+  </header>
+
+  <main>
+    <div class="content" id="html">
+      <h2>HTML for Absolute Beginners</h2>
+      <p>HTML stands for HyperText Markup Language. It is the standard markup language for creating Web pages.</p>
+      <p>While many guides on the internet attempt to teach HTML using a lot of mind-boggling theory, this tutorial will instead focus on giving you the <b> practical skills to build your first site.</b> <br>
+
+        The aim is to show you ‘how’ to create your first web page without spending the entire tutorial focusing too much on the “why.” <br>
+        
+        By the end of this tutorial, you will have the <b> know-how to create a basic website </b> and we hope that this will inspire you to delve further into the world of HTML using our follow-on guides. <br>
+    </p>
+
+    <h2>What is HTML?</h2>
+    <p>
+        Okay, so this is the only bit of mandatory theory. In order to begin to write HTML, it helps if you know what you are writing. <br>
+
+        HTML is the language in which most websites are written. HTML is used to create pages and make them functional.
+        <br>
+        The code used to make them visually appealing is known as CSS and we shall focus on this in a later tutorial. For now, we will focus on <b>teaching you how to build rather than design. </b>
+    </p>
+
+   <h2> What Are HTML Tags?</h2>
+<p>Tags are used to mark up the start of an HTML element and they are usually enclosed in angle brackets. An example of a tag is: h1
+
+Most tags must be opened and closed in order to function.
+
+<h2>What are HTML Attributes?</h2>
+<p>Attributes contain additional pieces of information. Attributes take the form of an opening tag and additional info is placed inside.
+
+An example of an attribute is:
+
+<img src="mydog.jpg" alt="A photo of my dog.">
+
+In this instance, the image source (src) and the alt text (alt) are attributes of the <img> tag.</p>
+
+<h2>Golden Rules To Remember</h2>
+<p>The vast majority of tags must be opened (<tag>) and closed (</tag>) with the element information such as a title or text resting between the tags.
+When using multiple tags, the tags must be closed in the order in which they were opened</p>
+
+      <ul>
+        <li><strong>&lt;!DOCTYPE html&gt;</strong>: Declares the document type</li>
+        <li><strong>&lt;html&gt;</strong>: Root of the HTML document</li>
+        <li><strong>&lt;head&gt;</strong>: Contains meta-information</li>
+        <li><strong>&lt;body&gt;</strong>: Contains the page content</li>
+        <li><strong>&lt;h1&gt; to &lt;h6&gt;</strong>: Headings</li>
+        <li><strong>&lt;p&gt;</strong>: Paragraphs</li>
+        <li><strong>&lt;a&gt;</strong>: Anchor (link)</li>
+        <li><strong>&lt;img&gt;</strong>: Images</li>
+      </ul>
+
+    </div>
+
+    <div class="editor">
+      <h2>Live Code Editor</h2>
+      <textarea id="htmlCode" placeholder="Enter HTML"></textarea>
+      <textarea id="cssCode" placeholder="Enter CSS"></textarea>
+      <textarea id="jsCode" placeholder="Enter JavaScript"></textarea>
+      <button onclick="runCode()">Run</button>
+      <iframe id="output"></iframe>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 HTML Learn To Code
+  </footer>
+
+  <script>
+    function runCode() {
+      const html = document.getElementById("htmlCode").value;
+      const css = document.getElementById("cssCode").value;
+      const js = document.getElementById("jsCode").value;
+
+      const output = document.getElementById("output");
+      const source = `
+        <html>
+          <head>
+            <style>${css}</style>
+          </head>
+          <body>
+            ${html}
+            <script>
+              ${js}
+            <\/script>
+          </body>
+        </html>
+      `;
+      output.srcdoc = source;
+    }
+  </script>
+</body>
+
+</html>
